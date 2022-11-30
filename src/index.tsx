@@ -16,23 +16,27 @@ export type Selection = {
   text?: string;
 }
 
-type IWebViewProps = {
+export type IWebViewProps = {
   width: number;
   height: number;
   menus: Menu[];
   value: string;
   maxItems?: number;
-  selections?: Selection[],
-  contextMenuCssStyle?: string;
+  minlength?: number;
+  selections?: Selection[];
+  onScroll?: (value: number) => void;
+  css?: string;
   onSelect: (menu: Menu, selectedText: string) => void | Promise<void>;
-} & WebViewProps;
+  injectedJavaScriptBefore?: string;
+  injectedJavaScriptAfter?: string;
+} & Omit<WebViewProps, "injectedJavaScript">;
 
 
-type IRef = {
+export type TextContextmenuRef = {
   webView?: WebView;
 }
 
-export const TextContextmenu = React.forwardRef<IRef, IWebViewProps>((props, ref) => {
+const TextContextmenu = React.forwardRef<TextContextmenuRef, IWebViewProps>((props, ref) => {
   const webRef = useRef<WebView>()
   const onMessage = (event: any) => {
     const data = JSON.parse(event.nativeEvent.data) as any;
@@ -42,7 +46,10 @@ export const TextContextmenu = React.forwardRef<IRef, IWebViewProps>((props, ref
     if (data.type == "menuClick") {
       const menu = props.menus.find(x => x.id === data.id) as Menu;
       props.onSelect(menu, data.selectedText);
-    }
+    } else if (data.type == "error") {
+      console.error(data);
+    } else if (data.type == "scroll" && props.onScroll)
+      props.onScroll(data.message);
     if (props.onMessage) {
       props.onMessage(event);
     }
@@ -63,6 +70,9 @@ export const TextContextmenu = React.forwardRef<IRef, IWebViewProps>((props, ref
   delete p.contextMenuCssStyle;
   delete p.selections;
   delete p.maxItems;
+  delete p.injectedJavaScriptBefore;
+  delete p.injectedJavaScriptAfter;
+  delete p.minlength;
   p.onMessage = onMessage;
   p.originWhitelist = ['*'];
   let style = { width: props.width, height: props.height };
@@ -72,12 +82,19 @@ export const TextContextmenu = React.forwardRef<IRef, IWebViewProps>((props, ref
   p.style = style;
   p.source = { uri: isAndroid ? "file:///android_asset/index.html" : "./asset/index.html" }
   p.injectedJavaScript = `
-      bindContextMenu(${JSON.stringify(props.menuItems)},${props.selections ? JSON.stringify(props.selections) : "undefined"}, ${props.maxItems ? props.maxItems : "undefined"}, "${props.value}" )
+      bindContextMenu(${JSON.stringify(props.menus)},${props.selections ? JSON.stringify(props.selections) : "undefined"}, ${props.maxItems ? props.maxItems : "undefined"}, ${"`" + props.value + "`"}, ${props.css ? "`" + props.css + "`" : "undefined"}, ${props.minlength ? props.minlength : "undefined"} )
   `
 
-  if (props.injectedJavaScript)
-    p.injectedJavaScript = props.injectedJavaScript + "\n" + p.injectedJavaScript;
+
+  if (props.injectedJavaScriptBefore)
+    p.injectedJavaScript = props.injectedJavaScriptBefore + "\n" + p.injectedJavaScript;
+
+  if (props.injectedJavaScriptAfter)
+    p.injectedJavaScript = + p.injectedJavaScript + "\n" + props.injectedJavaScriptAfter;
   return (
-    <WebView ref={webRef} {...p} />
+    <WebView {...p} ref={webRef} />
   )
 });
+
+
+export default TextContextmenu;

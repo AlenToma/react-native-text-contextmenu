@@ -4,19 +4,47 @@
 <head>
     <link href="./asset/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src=".\asset\tether.js"></script>
+    <script src="./asset/tether.js"></script>
 </head>
-
 <body>
 	
     <script src="./asset/contextMenu.js"></script>
     <script>
-
-		function bindContextMenu(menus,selections,maxItems, text)
+		function post (data){
+			if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage){
+				 window.ReactNativeWebView.postMessage(JSON.stringify(data))
+				
+			}
+		}
+		function bindContextMenu(menus, selections, maxItems, text, contextMenuCssStyle, minlength)
 		{
+			try { 
+			let timer = undefined;
+			window.onscroll = function () {
+			 clearTimeout(timer)
+			 timer = setTimeout(()=> {
+			 const scrollValue = document.documentElement.scrollTop || document.body.scrollTop;
+				post({type: "scroll", message:scrollValue });
+			 },100)
+			};
+			
+			
             const div= document.createElement("div");
 			div.innerHTML = text;
 			document.body.appendChild(div);
+			
+			if (contextMenuCssStyle){
+				const head = document.head || document.getElementsByTagName('head')[0];
+				const style = document.createElement('style');
+				head.appendChild(style);
+				style.type = 'text/css';
+				if (style.styleSheet){
+					// This is required for IE8 and below.
+					style.styleSheet.cssText = contextMenuCssStyle;
+				} else {
+					style.appendChild(document.createTextNode(contextMenuCssStyle));
+				}
+			}
 			new SelectionMenu({
                 isMobile: () => {
                     let check = false;
@@ -24,7 +52,7 @@
                     return check;
                 },
                 maxItems:function() {
-                   if (maxItems)
+					if (maxItems)
 						return maxItems;
 					return this.options.isMobile() ? 3 : 3
                 },
@@ -35,7 +63,7 @@
                 getSelections: async () => {
                     return selections;
                 },
-                minlength: 1,
+                minlength: minlength || 1,
                 onselect: function (e) {
                     var truncatedText = this.selectedText.replace(/\s+/g, ' ');
                     if (truncatedText.length > 30)
@@ -49,9 +77,13 @@
                         selectedText = this.selectedText,
                         query = encodeURI(selectedText.replace(/\s/g, '+')),
                         searchURI;
-						window.ReactNativeWebView.postMessage(JSON.stringify({type: "menuClick", id : id, selectedText:this.selectedText }))
+						post({type: "menuClick", id : id, selectedText:this.selectedText })
                 }
             });
+			
+			}catch(e){
+				post({type: "error", message:e.toString() });
+			}
 		}
 
     </script>

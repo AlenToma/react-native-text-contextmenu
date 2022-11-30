@@ -1,18 +1,41 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-text-contextmenu';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import TextContextmenu from 'react-native-text-contextmenu';
+import html from './html';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const css = `
+  .main-content p {
+    font-size: 26px;
+    line-height: 160%;
+    margin-left: 52px;
+    margin-right: 42px;
+    font-family: Arial, sans-serif, serif;
+    background-color: inherit;
+    z-index: -9999999999999999999999999;
+}
+  `
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <TextContextmenu minlength={3} value={html} menus={[{
+        text: "Copy",
+        icon: `<i class="fa fa-eye"></i>`,
+        id: "copy"
+      },
+      {
+        text: "Delete",
+        icon: `<i class="fa fa-times"></i>`,
+        id: "delete"
+      },
+      {
+        text: "Translate",
+        icon: `<i class="fa fa-times"></i>`,
+        id: "translate"
+      }]} maxItems={2} onSelect={(data, text) => {
+        console.log(data, text);
+      }} width={Dimensions.get("window").width} height={Dimensions.get("window").height} css={css} />
     </View>
   );
 }
