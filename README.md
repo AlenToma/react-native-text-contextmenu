@@ -24,9 +24,7 @@ import TextContextmenu from 'react-native-text-contextmenu';
 
 const html = `
 <div class="main-content">
-<p> Chapter 551: A wave of changes.</p>
-<p> Leaving the bathroom after finishing the bath, the group of mothers, daughters, and a goddess went to
-    Victor’s personal room, a room that was big enough to fit several people.</p>
+<p></p><p>Chapter 1 : Mt. Yellow’s True Monarch and Nine Provinces (1) Group</p><p></p><p>20th May 2019, Monday.</p><p></p><p>At the end of spring and summer’s arrival.</p><p></p><p>This season, the temperature difference between the Jiang Nan region’s day and night was huge. During the day, even if one was wearing shorts he could heat up like a hot dog; yet during the night he had to curl up on his bed, freezing like a cold bird.</p><p></p><p>Jiang Nan University City.</p>
 </div>
 `
 
