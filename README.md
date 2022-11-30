@@ -3,6 +3,10 @@
 Custom text contextmenu for react-native using webview
 in this you could customize everything about your contextmenu without using any native code
 
+### Images
+
+<img src="https://github.com/AlenToma/react-native-text-contextmenu/blob/master/screenshots/Screenshot_2.png?raw=true" width="500" />
+
 ## Installation
 
 ```sh
