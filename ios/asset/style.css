@@ -1,0 +1,291 @@
+.selection-menu {
+    font: 20px/100% Roboto, sans-serif;
+    text-transform: uppercase;
+    position: absolute;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px rgb(0 0 0 / 50%);
+    border-radius: 2px;
+    overflow: hidden;
+	padding: 5px 0 5px 0;
+}
+
+.selection-menu .collapsedMenu{
+    display: block;
+    overflow: hidden;
+    float: none;
+    clear: both;
+    overflow-y: auto;
+}
+
+
+.selection-menu .collapsedMenu>a{
+    float: none !important;
+    max-width: 82%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 14px;
+}
+
+.hide{
+    display: none !important;
+}
+
+.seperator {
+    min-width: 0px !important;
+    width: 57px;
+    height: 33px;
+    margin-right: 10px;
+    display: block !important;
+    padding: 0px !important;
+    border-left: 0.5em dotted black;
+    padding-left: 20px !IMPORTANT;
+    padding-right: 22px !important;
+    cursor: pointer;
+    position: relative !important;
+    left: 29px;
+}
+
+.selection-menu img {
+    width: 37px;
+}
+
+.selection-menu ul {
+    list-style-type: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    /* gets rid of the space between inline-block elements: https://css-tricks.com/fighting-the-space-between-inline-block-elements/ */
+    margin: 0;
+    padding: 0;
+}
+
+.selection-menu li {
+    all: unset;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    padding: .75em 1em;
+    border-left: 3px solid #666666;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    background: none;
+}
+
+.selection-menu li.shortcut {
+    font-weight: bold;
+}
+
+.selection-menu li:first-child {
+    border: none;
+    padding: 0 .4em;
+    /* or padding 0 & margin auto .4em but the hover selection is smaller */
+    margin: auto;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    /* For IE10; Chrome acts correctly on margin+padding alone */
+}
+
+.selection-menu li a {
+    display: inline-block;
+}
+
+.selection-menu li:hover {
+    background: #3FA9F5;
+    color: white;
+}
+
+/* don't highlight the image */
+.selection-menu li:first-child:hover {
+    background: transparent;
+}
+
+.tether-smenu-element,
+.tether-smenu-element:after,
+.tether-smenu-element:before,
+.tether-smenu-element *,
+.tether-smenu-element *:after,
+.tether-smenu-element *:before {
+    z-index: 16777271 !important;
+}
+
+div.tether-smenu-element-marker{
+    display: none;
+}
+
+
+
+.tether-smenu-element a, .tether-smenu-element .seperator {
+    font-size: 100%;
+    position: relative;
+    background: white;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    float: left;
+    min-width: 109px;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    min-height: 40px;
+}
+
+.mobile {
+    font-size: 50px !important;
+    min-height: 60px !important;
+    font-weight: bold;
+    padding: 14px !important;
+    padding-top: 21px !important;   
+}
+
+.tether-smenu-element a:not(.tether-smenu-element a.mobile):hover {
+    color: red;
+    cursor: pointer;
+}
+
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-center>ul {
+    margin-bottom: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-center>ul:before {
+    top: 100%;
+    left: 50%;
+    margin-left: -16px;
+    border-top-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-center>*:before {
+    bottom: 100%;
+    left: 50%;
+    margin-left: -16px;
+    border-bottom-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-right.tether-smenu-element-attached-middle>* {
+    margin-right: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-right.tether-smenu-element-attached-middle>*:before {
+    left: 100%;
+    top: 50%;
+    margin-top: -16px;
+    border-left-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-left.tether-smenu-element-attached-middle>* {
+    margin-left: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-left.tether-smenu-element-attached-middle>*:before {
+    right: 100%;
+    top: 50%;
+    margin-top: -16px;
+    border-right-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-left.tether-smenu-target-attached-bottom>* {
+    margin-top: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-left.tether-smenu-target-attached-bottom>*:before {
+    bottom: 100%;
+    left: 16px;
+    border-bottom-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-right.tether-smenu-target-attached-bottom>* {
+    margin-top: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-right.tether-smenu-target-attached-bottom>*:before {
+    bottom: 100%;
+    right: 16px;
+    border-bottom-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-left.tether-smenu-target-attached-top>* {
+    margin-bottom: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-left.tether-smenu-target-attached-top>*:before {
+    top: 100%;
+    left: 16px;
+    border-top-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-right.tether-smenu-target-attached-top>* {
+    margin-bottom: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-right.tether-smenu-target-attached-top>*:before {
+    top: 100%;
+    right: 16px;
+    border-top-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-right.tether-smenu-target-attached-left>* {
+    margin-right: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-right.tether-smenu-target-attached-left>*:before {
+    top: 16px;
+    left: 100%;
+    border-left-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-left.tether-smenu-target-attached-right>* {
+    margin-left: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-top.tether-smenu-element-attached-left.tether-smenu-target-attached-right>*:before {
+    top: 16px;
+    right: 100%;
+    border-right-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-right.tether-smenu-target-attached-left>* {
+    margin-right: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-right.tether-smenu-target-attached-left>*:before {
+    bottom: 16px;
+    left: 100%;
+    border-left-color: #464646;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-left.tether-smenu-target-attached-right>* {
+    margin-left: 16px;
+}
+
+.tether-smenu-element.tether-smenu-element-attached-bottom.tether-smenu-element-attached-left.tether-smenu-target-attached-right>*:before {
+    bottom: 16px;
+    right: 100%;
+    border-right-color: #464646;
+}
+
+.icon{
+    margin-right: 5px;
+    top: -1px;
+    position: relative;
+}
+.leftArrow {
+	background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABxklEQVRIibWUQUsUcRjGf+/swrrWelIPJQZBagi6uoW4ozS5JHjoForizS5dghQ7JGgnLx3cL1AeugR+BseowUuU062b5XYQQurg0iq783pIKdhWZ2Znn/P7Pr8//J/nFSJSX3a8XYzKkqDTCgdiMOe+s7fj9RoPDU20lOKlBZHyPHAZQKANj1dAT2iAZVlNPyvy6EiPngnS+p+RLoAwAEmbuZlfZV0V6DxvLjBgwLRuqRh5UNPvji9A//DYVYnJsqIPASPIo84FZDL3myvJ4lNgEbQ5iPFFAEmPjD2oUHwBXAtjXBOQzuZuY2geyNZjXAXos6wOKRuroLOcJiAyQL+Zm5KyrgPJqIzP9CcRovlGmP8FNFAGgMBj4HfDAK5jb3hxr0vhNaBRAqrSchrTNcD3Oagl17Gl6g/c7c0PrmOPApMoX+uF1PpkdR17I1a61As8B4phAb4KNWDeu6LirRDw2LmOLYEaOzhyN6PImsKoX0CgHnxytj7uOPYdEZkGvvnZCVM03Xm/+eYwlehGeQL8qDUHERy1btNMJSWxAMwDqX/cv3x27JuxegEHhcLx/t7u2/aOGy8RTQhcB/YMT+b2C7vfTwBM54R+8+oaRwAAAABJRU5ErkJggg==") !important;
+    display: inline-block !important;
+    min-width: 0 !important;
+    left: 21px;
+    position: relative !important;
+    top: 15px;
+    height: 24px !IMPORTANT;
+    margin-bottom: 32px;
+    cursor: pointer;
+    min-height: 0 !important;
+    width: 24px;
+    border: 0;
+    background-repeat: no-repeat;
+    padding: 0 !important;
+  }
