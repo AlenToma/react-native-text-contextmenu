@@ -1,5 +1,5 @@
-import React, { LegacyRef, useImperativeHandle, useRef } from 'react';
-import { NativeModules, Platform, ColorValue, } from 'react-native';
+import React, { useImperativeHandle, useRef } from 'react';
+import { Platform, ColorValue, } from 'react-native';
 import WebView, { WebViewProps } from 'react-native-webview';
 const isAndroid = Platform.OS === 'android'
 
