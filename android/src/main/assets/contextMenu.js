@@ -340,7 +340,6 @@
 
             instance._span.style.zIndex = '-99999';
             document.body.appendChild(instance._span);
-
             if (instance.debug) {
                 console.log('Appended the overlay span');
                 instance._span.style.backgroundColor = 'yellow';
@@ -375,14 +374,13 @@
             if (instance.options.isMobile()) {
                 const spanPos = getAbsoluteElement(selRects.rect)
                 const mPos = instance.menu.getBoundingClientRect();
-                let left = lerp(60, instance.windowSize.width - spanPos.left, 0.5) - (mPos.width / 2);
+                let left = lerp(58, instance.windowSize.width - spanPos.left, 0.14) - (mPos.width / 2);
                 if (left < (mPos.width / 2))
                     left = left + (mPos.width / 3);
-                console.log(spanPos.left, left)
+                // console.log(spanPos.left, left)
                 attachment = 'bottom center';
                 targetAttachment = 'top center';
-                targetOffset = (spanPos.top < (mPos.height * 2) ? mPos.height + "px" : "0 ") + left + "px"
-
+                targetOffset = (spanPos.top < (mPos.height * 2) ? mPos.height + "px " : "0 ") + left + "px"
             }
             // TODO if (Tether in Window)
             instance.tether = new Tether({  // Tether playground: http://jsfiddle.net/dandv/33yndveL/
@@ -456,8 +454,8 @@
                 return;
             this.container.focus();
             const range = this.rang;
-           // range.selectNodeContents(this.container)
-           // range.collapse(true)
+            // range.selectNodeContents(this.container)
+            // range.collapse(true)
             var selection = window.getSelection();
             selection.removeAllRanges();
             selection.addRange(range);

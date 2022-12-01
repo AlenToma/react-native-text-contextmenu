@@ -14,7 +14,18 @@ export default function App() {
     font-family: Arial, sans-serif, serif;
     background-color: inherit;
     z-index: -9999999999999999999999999;
-}
+  }
+  .selection-menu {
+    font: 12px/100% Roboto, sans-serif;
+  }
+
+  .mobile {
+    font-size: 20px !important;
+    min-height: 30px !important;
+    font-weight: bold;
+    padding: 14px !important;
+    padding-top: 21px !important;   
+  }
   `
 
   return (
@@ -33,7 +44,7 @@ export default function App() {
         text: "Translate",
         icon: `<i class="fa fa-times"></i>`,
         id: "translate"
-      }]} maxItems={2} onSelect={(data, text) => {
+      }]} maxItems={2} scrollTop={500} selections={[{ text: "the ", color: "red" }]} onSelect={(data, text) => {
         console.log(data, text);
       }} width={Dimensions.get("window").width} height={Dimensions.get("window").height} css={css} />
     </View>

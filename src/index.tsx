@@ -29,8 +29,23 @@ export type IWebViewProps = {
   onSelect: (menu: Menu, selectedText: string) => void | Promise<void>;
   injectedJavaScriptBefore?: string;
   injectedJavaScriptAfter?: string;
+  contextMenuJS?: string;
+  click?: (menuVisible: boolean) => void | Promise<void>;
+  scrollTop?: number;
 } & Omit<WebViewProps, "injectedJavaScript">;
 
+type BindContextMenu = {
+  menus: Menu[];
+  text: string;
+  maxItems?: number;
+  minlength?: number;
+  selections?: Selection[];
+  contextMenuCssStyle?: string;
+  tetherJS: string;
+  stylesheet: string;
+  contextMenuJS: string;
+  scrollTop: number;
+}
 
 export type TextContextmenuRef = {
   webView?: WebView;
@@ -50,6 +65,8 @@ const TextContextmenu = React.forwardRef<TextContextmenuRef, IWebViewProps>((pro
       console.error(data);
     } else if (data.type == "scroll" && props.onScroll)
       props.onScroll(data.message);
+    else if (data.type === "click" && props.click)
+      props.click(data.data as boolean);
     if (props.onMessage) {
       props.onMessage(event);
     }
@@ -81,11 +98,26 @@ const TextContextmenu = React.forwardRef<TextContextmenuRef, IWebViewProps>((pro
   }
   p.style = style;
   p.source = { uri: isAndroid ? "file:///android_asset/index.html" : "./asset/index.html" }
+
+  const data = {
+    menus: props.menus,
+    selections: props.selections,
+    maxItems: props.maxItems,
+    minlength: props.minlength,
+    contextMenuCssStyle: props.css,
+    text: props.value,
+    scrollTop: props.scrollTop,
+    tetherJS: isAndroid ? "file:///android_asset/tether.js" : "./asset/tether.js",
+    contextMenuJS: isAndroid ? "file:///android_asset/contextMenu.js" : "./asset/contextMenu.js",
+    stylesheet: isAndroid ? "file:///android_asset/style.css" : "./asset/style.css"
+
+  } as BindContextMenu;
+  if (props.contextMenuJS) {
+    data.contextMenuJS = props.contextMenuJS;
+  }
   p.injectedJavaScript = `
-      bindContextMenu(${JSON.stringify(props.menus)},${props.selections ? JSON.stringify(props.selections) : "undefined"}, ${props.maxItems ? props.maxItems : "undefined"}, ${"`" + props.value + "`"}, ${props.css ? "`" + props.css + "`" : "undefined"}, ${props.minlength ? props.minlength : "undefined"} )
+      bindContextMenu(${JSON.stringify(data)});
   `
-
-
   if (props.injectedJavaScriptBefore)
     p.injectedJavaScript = props.injectedJavaScriptBefore + "\n" + p.injectedJavaScript;
 

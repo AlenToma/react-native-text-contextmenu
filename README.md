@@ -38,12 +38,23 @@ export default function App() {
     font-family: Arial, sans-serif, serif;
     background-color: inherit;
     z-index: -9999999999999999999999999;
-}
+  }
+  .selection-menu {
+    font: 12px/100% Roboto, sans-serif;
+  }
+
+  .mobile {
+    font-size: 20px !important;
+    min-height: 30px !important;
+    font-weight: bold;
+    padding: 14px !important;
+    padding-top: 21px !important;   
+  }
   `
 
   return (
     <View style={styles.container}>
-      <TextContextmenu value={html} menus={[{
+      <TextContextmenu minlength={3} value={html} menus={[{
         text: "Copy",
         icon: `<i class="fa fa-eye"></i>`,
         id: "copy"
@@ -57,8 +68,8 @@ export default function App() {
         text: "Translate",
         icon: `<i class="fa fa-times"></i>`,
         id: "translate"
-      }]} maxItems={2} onSelect={(menu, selectedText) => {
-        console.log(menu, selectedText);
+      }]} maxItems={2} scrollTop={100} selections={[{ text: "the ", color: "red" }]} onSelect={(data, text) => {
+        console.log(data, text);
       }} width={Dimensions.get("window").width} height={Dimensions.get("window").height} css={css} />
     </View>
   );
@@ -100,6 +111,16 @@ inject javascript after the contextmenu gets bind
 
 ### minlength(optional)
 how much text has to get selected before contextmenu gets displayed default is 1
+
+### contextMenuJS(optional)
+override the contextmenujs and load your own js file. This is a link eg `file:///android_asset/contextMenu.js`
+
+### click(optional)
+When the container gets clicked
+
+### scrollTop(optional)
+ScrollY Offset
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
