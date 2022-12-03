@@ -1,7 +1,7 @@
 {
   "name": "react-native-text-contextmenu",
   "version": "0.1.2",
-  "description": "test",
+  "description": "Custom text contextmenu for react-native using webview in this you could customize everything about your contextmenu without using any native code",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
